@@ -6,7 +6,7 @@
 
 }
 .navbar{
-  outline: 2px solid red;
+  /* outline: 2px solid red; */
   height: 80px;
   width: 100%;
   display: flex;
@@ -46,4 +46,9 @@ input{
   display: flex;
   align-items: center;
   margin-left: 100px;
+}
+.row{
+  display:flex;
+  gap: 10px;
+  height: 200px;
 }
