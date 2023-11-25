@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import image from "../images/Standard Collection 11.png";
 import axios from "axios";
-
+import { useBookContext } from "../context/BookContext";
 const Navbar = ({ setSearchResults }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [bigdata, setBigData] = useState(null);
-  let TITLE, DISC, BOOKIMG, THUMB;
+  const { setBookData } = useBookContext();
   function implementSearch(e) {
     if (e) {
       e.preventDefault();
@@ -19,14 +19,13 @@ const Navbar = ({ setSearchResults }) => {
       .then((res) => {
         setBigData(res.data.items);
         console.log(res.data.items);
-        // TITLE = res.data.items.map(getTitle);
-        // DISC = res.data.items.map(getDisc);
-        BOOKIMG = res.data.items.map(getImg);
-        // console.log(TITLE);
-        // console.log(DISC);
-        console.log(BOOKIMG);
-        THUMB = BOOKIMG.map(getThumb);
-        console.log(THUMB);
+        const title = res.data.items.map(getTitle);
+        const disc = res.data.items.map(getDisc);
+        const bookImg = res.data.items.map(getImg);
+        // console.log(title);
+        // console.log(disc);
+        // console.log(bookImg);
+        setBookData(title, disc, bookImg);
       });
   }
 
@@ -38,9 +37,6 @@ const Navbar = ({ setSearchResults }) => {
   }
   function getImg(item) {
     return item.volumeInfo.imageLinks;
-  }
-  function getThumb(item) {
-    return item.smallThumbnail;
   }
 
   return (

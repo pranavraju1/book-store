@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import "./AppStyle.css";
 import Navbar from "./Components/Navbar";
-import Render from "./Components/Render";
+import { BookProvider } from "./context/BookContext";
+import Display from "./Components/Display";
 
 const App = () => {
   const [searResults, setSearchResults] = useState(null);
   return (
-    <div>
-      <Navbar setSearchResults={setSearchResults}/>
-      {/* <Render/> */}
-    </div>
-  ) 
-
+    <BookProvider>
+      <Navbar setSearchResults={setSearchResults} />
+      <Display />
+    </BookProvider>
+  );
 };
 
 export default App;
