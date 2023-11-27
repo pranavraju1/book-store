@@ -1,16 +1,18 @@
-import React, { useState } from "react";
-import "./AppStyle.css";
+import React from "react";
 import Navbar from "./Components/Navbar";
-import { BookProvider } from "./context/BookContext";
-import Display from "./Components/Display";
+import AllBooks from "./Components/AllBooks";
+import Detail from "./Components/Detail";
+import GlobalContextProvider from "./context/GlobalContextProvider";
 
 const App = () => {
-  const [searResults, setSearchResults] = useState(null);
   return (
-    <BookProvider>
-      <Navbar setSearchResults={setSearchResults} />
-      <Display />
-    </BookProvider>
+    <div>
+      <GlobalContextProvider>
+        <Navbar />
+        <Detail />
+        <AllBooks />
+      </GlobalContextProvider>
+    </div>
   );
 };
 

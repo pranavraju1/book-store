@@ -1,63 +1,29 @@
-import React, { useState } from "react";
-import image from "../images/Standard Collection 11.png";
-import axios from "axios";
-import { useBookContext } from "../context/BookContext";
-const Navbar = ({ setSearchResults }) => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [bigdata, setBigData] = useState(null);
-  const { setBookData } = useBookContext();
-  function implementSearch(e) {
-    if (e) {
-      e.preventDefault();
-    }
-    axios
-      .get("https://www.googleapis.com/books/v1/volumes", {
-        params: {
-          q: searchTerm,
-        },
-      })
-      .then((res) => {
-        setBigData(res.data.items);
-        console.log(res.data.items);
-        const title = res.data.items.map(getTitle);
-        const disc = res.data.items.map(getDisc);
-        const bookImg = res.data.items.map(getImg);
-        // console.log(title);
-        // console.log(disc);
-        // console.log(bookImg);
-        setBookData(title, disc, bookImg);
-      });
-  }
-
-  function getTitle(item) {
-    return item.volumeInfo.title;
-  }
-  function getDisc(item) {
-    return item.volumeInfo.description;
-  }
-  function getImg(item) {
-    return item.volumeInfo.imageLinks;
-  }
-
+import React from "react";
+import { FaSearch } from "react-icons/fa";
+import bookheart from "../images/bx_bx-book-heart.png";
+import daimond from "../images/fluent_premium-person-20-regular.png";
+import bell from "../images/ic_round-notifications-none.png";
+import avtar from "../images/IMG20210528181544.png";
+const Navbar = () => {
   return (
-    <div className="navbar">
-      <div id="nav-logo">
-        <img src={image} alt="" />
+    <nav style={{ display: "flex", justifyContent: "space-between" }}>
+      <div className="nav-v">KeazonBOOKS</div>
+      <div className="nav-search" style={{ display: "flex" }}>
+        <div className="search" style={{ display: "flex" }}>
+          <div className="search-icon">
+            <FaSearch />
+          </div>
+          <input type="text" placeholder="" />
+        </div>
+        <button>Search</button>
       </div>
-      <div className="navbar-text1">KeazoN</div>
-      <div className="navbar-text2">Books</div>
-      <div className="nav-in">
-        <form onSubmit={implementSearch}>
-          <input
-            type="text"
-            placeholder="Search for the book you want and read it now... Sherlock Holmes, Harry Pot..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <button type="submit">Search</button>
-        </form>
+      <div className="nav-icons">
+        <img src={bookheart} />
+        <img src={bell} />
+        <img src={daimond} />
+        <img src={avtar} />
       </div>
-    </div>
+    </nav>
   );
 };
 
